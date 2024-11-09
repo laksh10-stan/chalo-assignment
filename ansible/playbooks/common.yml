@@ -1,0 +1,29 @@
+---
+- hosts: all
+  become: yes
+  vars:
+    postgres_version: "{{ postgres_version }}"
+  tasks:
+    - name: Update APT cache
+      apt:
+        update_cache: yes
+
+    - name: Install PostgreSQL
+      apt:
+        name: "postgresql-{{ postgres_version }}"
+        state: present
+
+    - name: Set up common PostgreSQL configuration
+      template:
+        src: ../templates/postgresql.conf.j2
+        dest: /etc/postgresql/{{ postgres_version }}/main/postgresql.conf
+
+    - name: Set up pg_hba.conf
+      template:
+        src: ../templates/pg_hba.conf.j2
+        dest: /etc/postgresql/{{ postgres_version }}/main/pg_hba.conf
+
+    - name: Restart PostgreSQL service
+      service:
+        name: postgresql
+        state: restarted

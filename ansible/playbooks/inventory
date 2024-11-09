@@ -1,0 +1,6 @@
+[primary]
+primary-postgres ansible_host={{ primary_instance_ip }}
+
+[replicas]
+replica-postgres ansible_host={{ replica_instance_ips[0] }}
+replica-postgres ansible_host={{ replica_instance_ips[1] }}

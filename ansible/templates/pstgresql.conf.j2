@@ -1,0 +1,11 @@
+# PostgreSQL configuration file
+listen_addresses = '*'
+max_connections = {{ max_connections }}
+shared_buffers = '{{ shared_buffers }}'
+
+# Replication settings
+wal_level = replica
+archive_mode = on
+archive_command = 'cp %p /var/lib/postgresql/archive/%f'
+max_wal_senders = 10
+wal_keep_segments = 32

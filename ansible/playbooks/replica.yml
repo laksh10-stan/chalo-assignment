@@ -1,0 +1,18 @@
+---
+- hosts: replicas
+  become: yes
+  tasks:
+    - name: Install PostgreSQL
+      apt:
+        name: postgresql-{{ postgres_version }}
+        state: present
+
+    - name: Configure replica for replication
+      template:
+        src: ../templates/postgresql.conf.j2
+        dest: /etc/postgresql/{{ postgres_version }}/main/postgresql.conf
+
+    - name: Restart PostgreSQL
+      service:
+        name: postgresql
+        state: restarted

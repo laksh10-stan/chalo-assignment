@@ -1,0 +1,5 @@
+# PostgreSQL Client Authentication Configuration File
+
+# Allow replication connections from replica nodes
+host replication all {{ primary_ip }}/32 trust
+host replication all {{ replica_subnet }} md5
