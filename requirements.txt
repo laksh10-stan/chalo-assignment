@@ -1,4 +1,0 @@
-Flask==2.3.2
-ansible==7.5.1
-boto3==1.28.1
-Jinja2==3.1.2
